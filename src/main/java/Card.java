@@ -1,11 +1,20 @@
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by mbeothy on 2016. 12. 08..
- */
+
 public class Card {
 
-    String cardCode;
+    private String cardCode;
+    private static final Map<String, Integer> ALPHABETIC_CARD_VALUE = createMap();
+    private static Map<String, Integer> createMap() {
+        Map<String, Integer> alphabetic = new HashMap<>();
+        alphabetic.put("J", 11);
+        alphabetic.put("Q", 12);
+        alphabetic.put("K", 13);
+        alphabetic.put("A", 14);
+        return Collections.unmodifiableMap(alphabetic);
+    }
 
     public Card(String cardCode) throws IllegalArgumentException {
         this.cardCode = cardCode;
@@ -23,13 +32,7 @@ public class Card {
         String cardValue = cardCode.substring(1).toUpperCase();
         Integer intCardValue;
 
-        HashMap<String, Integer> alphabeticCardValue = new HashMap<>();
-        alphabeticCardValue.put("J", 11);
-        alphabeticCardValue.put("Q", 12);
-        alphabeticCardValue.put("K", 13);
-        alphabeticCardValue.put("A", 14);
-
-        if (alphabeticCardValue.get(cardCode.substring(1).toUpperCase()) == null) {
+        if (ALPHABETIC_CARD_VALUE.get(cardCode.substring(1).toUpperCase()) == null) {
             // raises exception if cardValue is a letter, but not J/Q/K/A
             intCardValue = Integer.parseInt(cardValue);
             if (intCardValue > 10) {
@@ -43,19 +46,13 @@ public class Card {
     }
 
     public int getValue() {
-        HashMap<String, Integer> alphabeticCardValue = new HashMap<>();
-        alphabeticCardValue.put("J", 11);
-        alphabeticCardValue.put("Q", 12);
-        alphabeticCardValue.put("K", 13);
-        alphabeticCardValue.put("A", 14);
-
         String cardValue = cardCode.substring(1).toUpperCase();
         Integer intCardValue;
 
-        if (alphabeticCardValue.get(cardCode.substring(1).toUpperCase()) == null) {
+        if (ALPHABETIC_CARD_VALUE.get(cardCode.substring(1).toUpperCase()) == null) {
             intCardValue = Integer.parseInt(cardValue);
         } else {
-            intCardValue = alphabeticCardValue.get(cardCode.substring(1).toUpperCase());
+            intCardValue = ALPHABETIC_CARD_VALUE.get(cardCode.substring(1).toUpperCase());
         }
 
         return intCardValue;
