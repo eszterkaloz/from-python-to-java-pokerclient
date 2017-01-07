@@ -1,11 +1,10 @@
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class Card {
 
     private String cardCode;
+    private static final List<String> CARD_COLOR = new ArrayList<>(Arrays.asList("S", "C", "D", "H"));
     private static final Map<String, Integer> ALPHABETIC_CARD_VALUE = createMap();
     private static Map<String, Integer> createMap() {
         Map<String, Integer> alphabetic = new HashMap<>();
@@ -21,11 +20,7 @@ public class Card {
 
         String cardColor = this.cardCode.substring(0, 1).toUpperCase();
 
-        if (!cardColor.contentEquals("S") &&
-            !cardColor.contentEquals("C") &&
-            !cardColor.contentEquals("D") &&
-            !cardColor.contentEquals("H"))
-        {
+        if(!CARD_COLOR.contains(cardColor)) {
             throw new IllegalArgumentException("card color isn't valid: " + cardColor);
         }
 
