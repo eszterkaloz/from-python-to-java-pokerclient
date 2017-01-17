@@ -1,44 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class PokerClient {
 
-    private List<Card> pokerClientCards = new ArrayList<>();
+    private List<Card> cardList = new ArrayList<>();
 
-    public PokerClient(String p1, String p2, String p3, String p4, String p5) {
-
-        for (String card : Arrays.asList(p1, p2, p3, p4, p5)) {
-            pokerClientCards.add(new Card(card.toUpperCase()));
+    public PokerClient(String card1, String card2, String card3, String card4, String card5) {
+        for (String card : Arrays.asList(card1, card2, card3, card4, card5)) {
+            this.cardList.add(new Card(card));
         }
-
     }
 
-    public boolean highestCardIsMine(String p1, String p2, String p3, String p4, String p5) {
-        List<Card> otherCards = new ArrayList<>();
+    public boolean highestCardIsMine(String card1, String card2, String card3, String card4, String card5) {
+        PokerClient otherPlayer = new PokerClient(card1, card2, card3, card4, card5);
 
-        for (String card : Arrays.asList(p1, p2, p3, p4, p5)) {
-            otherCards.add(new Card(card.toUpperCase()));
-        }
-
-        Card highestCard = otherCards.get(0);
-
-        for (Card myCard : pokerClientCards) {
-            for (Card otherCard : otherCards) {
-                if (otherCard.getValue() > myCard.getValue()) {
-                    if (otherCard.getValue() > highestCard.getValue()) {
-                        highestCard = otherCard;
-                    }
-                } else {
-                    if (myCard.getValue() > highestCard.getValue()) {
-                        highestCard = myCard;
-                    }
-                }
-            }
-        }
-
-        return pokerClientCards.contains(highestCard);
+        otherPlayer.cardList.addAll(this.cardList);
+        Comparator<Card> comparator = (cardOne, cardTwo) -> Integer.compare( cardOne.getValue(), cardTwo.getValue());
+        return this.cardList.contains(
+                otherPlayer.cardList
+                        .stream()
+                        .max(comparator)
+                        .get());
     }
 
 }
