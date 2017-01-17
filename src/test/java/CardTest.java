@@ -17,8 +17,41 @@ public class CardTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInitiatingCardWithWrongCardValue() throws Exception {
+    public void testInitiatingCardWithLowCardValue() throws Exception {
         queenOfHearts = new Card("h1");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInitiatingCardWithHighCardValue() throws Exception {
+        sixOfSpades = new Card("s11");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInitiatingCardWithInvalidCardValue() throws Exception {
+        queenOfHearts = new Card("hfljdsflé");
+    }
+
+
+    @Test
+    public void testInitiationLowerCaseCardColor() throws Exception {
+        queenOfHearts = new Card("hQ");
+        sixOfSpades = new Card("s6");
+    }
+
+    @Test
+    public void testInitiationUpperCaseCardColor() throws Exception {
+        queenOfHearts = new Card("HQ");
+        sixOfSpades = new Card("S6");
+    }
+
+    @Test
+    public void testInitiationLowerCaseCardValue() throws Exception {
+        queenOfHearts = new Card("Hq");
+    }
+
+    @Test
+    public void testInitiationUpperCaseCardValue() throws Exception {
+        queenOfHearts = new Card("hQ");
     }
 
     @Test
